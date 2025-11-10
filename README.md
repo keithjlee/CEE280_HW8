@@ -23,7 +23,7 @@ Install [Visual Studio Code](https://code.visualstudio.com/), a very popular tex
 ## Download
 
 ## Setting up VS Code
-Open VS Code and navigate to this folder (press `cmd/ctrl+o`), and install the Julia language extension from the Extensions toolbar on the left side of the window:
+Open VS Code and navigate to this folder (press `cmd/ctrl+o` for a file navigator dialogue), and install the Julia language extension from the Extensions toolbar on the left side of the window:
 
 ![alt text](readme_assets/image-2.png)
 
