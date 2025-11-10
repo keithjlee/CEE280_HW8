@@ -1,6 +1,6 @@
 # PRESS SHIFT+ENTER TO RUN A LINE OF CODE AND GO TO THE NEXT LINE
 
-# Load the current environment and install all necesary packages
+# Load the current environment and install all necessary packages
 begin
     using Pkg
     Pkg.activate(".")
@@ -48,6 +48,18 @@ function k_element(E, A, L)
     return k
 end
 
+"""
+    FL(dx, dy)
+
+Given:
+dx: Change of node 5 position in x direction
+dy: Change of node 5 position in y direction
+
+Performs structural analysis and outputs the performance score:
+
+∑|Fᵢ|Lᵢ
+
+"""
 function FL(dx, dy)
 
   # constants
@@ -211,14 +223,13 @@ SAMPLING
 =#
 
 n_samples = 50
-
 dx_range = range(-1, 1, n_samples)
 dy_range = range(-1, 1, n_samples)
 
+p_v_x = [FL(x, 0) for x in dx_range]
+x_min = dx_range[argmin(p_v_x)]
 
-# Test dx
-p_v_x_landscape = [FL(x, 0) for x in dx_range]
-
+#visualize
 begin
     fig = Figure()
     ax = Axis(
@@ -230,14 +241,22 @@ begin
     ylims!(0, 1800)
 
     lines!(
-    dx_range, p_v_x_landscape
+    dx_range, p_v_x,
+    color = :black
+    )
+
+    vlines!(
+        [x_min],
+        color = :gray,
+        linestyle = :dash
     )
 
     fig
 end
 
 # Test dy
-p_v_y_landscape = [FL(0, y) for y in dy_range]
+p_v_y = [FL(0, y) for y in dy_range]
+y_min = dy_range[argmin(p_v_y)]
 
 begin
     fig = Figure()
@@ -250,16 +269,21 @@ begin
     ylims!(0, 1800)
 
     lines!(
-    dy_range, p_v_y_landscape
+    dy_range, p_v_y,
+    color = :black
+    )
+
+    vlines!(
+        [y_min],
+        color = :gray,
+        linestyle = :dash
     )
 
     fig
 end
 
-
 # test full design space
-
-landscape = zeros(n_samples, n_samples)
+p_v_xy = zeros(n_samples, n_samples)
 
 for i = 1:n_samples
   for j = 1:n_samples
@@ -267,9 +291,14 @@ for i = 1:n_samples
     _y = dy_range[j]
 
     perf = FL(_x, _y)
-    landscape[i,j] = perf
+    p_v_xy[i,j] = perf
   end
 end
+
+i_opt = argmin(p_v_xy)
+x_opt = dx_range[i_opt[1]]
+y_opt = dy_range[i_opt[2]]
+
 
 begin
     fig = Figure()
@@ -280,11 +309,19 @@ begin
     )
 
     hm = heatmap!(
-    dx_range, dy_range, landscape
+        dx_range, dy_range, p_v_xy,
+        colormap = :plasma,
+        interpolate = true,
+        rasterize = 2
+    )
+
+    scatter!(
+        [x_opt], [y_opt],
+        color = :white
     )
 
     contour!(
-    dx_range, dy_range, landscape,
+    dx_range, dy_range, p_v_xy,
     levels = 25,
     color = :white
     )
@@ -292,7 +329,7 @@ begin
     Colorbar(
     fig[1,2],
     hm,
-    label = "Performance [kNm]"
+    label = "∑|F|L [kNm]"
     )
 
     fig

@@ -2,7 +2,7 @@
 
 julia_version = "1.12.1"
 manifest_format = "2.0"
-project_hash = "b700f19782e21157a277dcfd1bf4782356389582"
+project_hash = "2830b69146526e042d33d323f092d3cf16089a1a"
 
 [[deps.ADTypes]]
 git-tree-sha1 = "27cecae79e5cc9935255f90c53bb831cc3c870d7"
@@ -1540,6 +1540,12 @@ git-tree-sha1 = "d9e2cca329ce969a3dc26c9278d77bfeff7012ef"
 uuid = "36348300-93cb-4f02-beb5-3c3902f8871e"
 version = "0.4.5"
 
+[[deps.OptimizationPRIMA]]
+deps = ["Optimization", "PRIMA", "Reexport"]
+git-tree-sha1 = "5e697185976504eb08701251b87f455c250a61ee"
+uuid = "72f8369c-a2ea-4298-9126-56167ce9cbc2"
+version = "0.3.1"
+
 [[deps.Opus_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl"]
 git-tree-sha1 = "c392fc5dd032381919e3b22dd32d6443760ce7ea"
@@ -1571,6 +1577,26 @@ deps = ["Base64", "CEnum", "ImageCore", "IndirectArrays", "OffsetArrays", "libpn
 git-tree-sha1 = "cf181f0b1e6a18dfeb0ee8acc4a9d1672499626c"
 uuid = "f57f5aa1-a3ce-4bc8-8ab9-96f992907883"
 version = "0.4.4"
+
+[[deps.PRIMA]]
+deps = ["LinearAlgebra", "PRIMA_jll", "TypeUtils"]
+git-tree-sha1 = "a066ecc3478e57377411d748125f572bf4e39cf3"
+uuid = "0a7d04aa-8ac2-47b3-b7a7-9dbd6ad661ed"
+version = "0.2.4"
+
+    [deps.PRIMA.extensions]
+    PRIMACUTEstExt = "CUTEst"
+    PRIMANLPModelsExt = "NLPModels"
+
+    [deps.PRIMA.weakdeps]
+    CUTEst = "1b53aba6-35b6-5f92-a507-53c67d53f819"
+    NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
+
+[[deps.PRIMA_jll]]
+deps = ["Artifacts", "CompilerSupportLibraries_jll", "JLLWrappers", "Libdl"]
+git-tree-sha1 = "f7bbf8d5dda12f3f417b350baf82ebf0d190a623"
+uuid = "eead6e0c-2d5b-5641-a95c-b722de96d551"
+version = "0.7.1+0"
 
 [[deps.Packing]]
 deps = ["GeometryBasics"]
@@ -2229,6 +2255,17 @@ version = "0.2.1"
 git-tree-sha1 = "4d4ed7f294cda19382ff7de4c137d24d16adc89b"
 uuid = "981d1d27-644d-49a2-9326-4793e63143c3"
 version = "0.1.0"
+
+[[deps.TypeUtils]]
+deps = ["LinearAlgebra", "Requires"]
+git-tree-sha1 = "99c80f6db951c7fbb881f3e830ffa6038f08b6e6"
+uuid = "c3b1956e-8857-4d84-9b79-890df85b1e67"
+version = "1.12.0"
+weakdeps = ["OffsetArrays", "Unitful"]
+
+    [deps.TypeUtils.extensions]
+    TypeUtilsOffsetArraysExt = "OffsetArrays"
+    TypeUtilsUnitfulExt = "Unitful"
 
 [[deps.UUIDs]]
 deps = ["Random", "SHA"]
