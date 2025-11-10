@@ -1,7 +1,11 @@
 # CEE280 HW08 2025
 For Stanford CEE280 - Prof. Gregory Deierlein.
+Lectures on optimization by Keith J. Lee.
 
-Begin by either 
+Begin by either cloning this repository using git, or downloading all files as a .zip folder:
+![alt text](readme_assets/repo.png)
+
+ If using the latter, unzip the file. You should now have a folder that matches the contents of this repository.
 
 # Installation instructions
 
