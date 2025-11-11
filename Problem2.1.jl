@@ -7,9 +7,8 @@ begin
     Pkg.instantiate()
 end
 
-# Load our first set of packages
-using LinearAlgebra #for vector/matrix operations like norm(), etc.
-using CairoMakie #this is for making plots and figures
+#define some utility functions and load packages
+include("utilities.jl")
 
 #=
 PROBLEM 2
@@ -41,7 +40,7 @@ returns the [2×2] truss stiffness matrix in local coordinates.
 """
 function k_element(E, A, L)
 
-    k = #YOUR CODE HERE
+    # k = #YOUR CODE HERE
 
     k = E * A / L * [1 -1; -1 1]
 
@@ -341,4 +340,4 @@ begin
     fig
 end
 
-opt_model = generate_cantilever(res.x_opt)
+draw_cantilever([x_opt, y_opt])

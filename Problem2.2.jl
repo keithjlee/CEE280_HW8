@@ -2,11 +2,15 @@
 Press shift+enter to run lines/blocks of code!
 =#
 
-using LinearAlgebra, Asap, AsapOptim, Zygote, CairoMakie
-using Optimization, OptimizationOptimJL
+#load the environment and install any packages as required
+begin
+    using Pkg
+    Pkg.activate(".")
+    Pkg.instantiate()
+end
 
-#define some utility functions
-include("Problem2_utilities.jl")
+#define some utility functions and load packages
+include("utilities.jl")
 
 begin
   #this makes an Asap structural model of the same cantilever truss
@@ -74,6 +78,8 @@ begin
 
     #draw
     fig = Figure()
+
+    landscape = [FL([x, y], params) for x in dx_range, y in dy_range]
 
     ax = Axis(
       fig[1,1],

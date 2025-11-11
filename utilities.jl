@@ -1,3 +1,9 @@
+# dependencies
+using LinearAlgebra, Statistics
+using Asap, AsapOptim, Zygote
+using Optimization, OptimizationOptimJL
+using CairoMakie
+
 n_samples = 50
 dx_range = range(-1, 1, n_samples)
 dy_range = range(-1, 1, n_samples)
