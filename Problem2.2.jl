@@ -2,16 +2,8 @@
 Press shift+enter to run lines/blocks of code!
 =#
 
-using Asap, AsapOptim, Zygote
-using Optimization, OptimizationOptimJL, OptimizationNLopt
-
-
-#=
-COMPLETE problem2.1.jl first
-=#
-
-#run the code for problem2.1.jl
-include("Problem2.1.jl")
+using LinearAlgebra, Asap, AsapOptim, Zygote, CairoMakie
+using Optimization, OptimizationOptimJL
 
 #define some utility functions
 include("utilities.jl")
@@ -58,23 +50,38 @@ begin
   conjugate_gradient_descent = Optim.ConjugateGradient()
   LBFGS = Optim.LBFGS()
 end
+
+
+#=
+YOUR WORK STARTS BELOW
+=#
+
 # choose initial guess
-x0 = [-.75, -.75]
+x0 = [.5, -.75]
+
+# visualize initial guess
+fig = draw_cantilever(x0)
 
 # choose algorithm
 alg = particle_swarm
 
+# optimize
+res = optimize(FL, params, x0, alg);
 
-res = optimize(FL, params, x0, alg)
-
+# visualize design space
 begin
+    #performance landscape
+    landscape = [FL([x, y], params) for x in dx_range, y in dy_range]
+
+    #draw
     fig = Figure()
+
     ax = Axis(
-    fig[1,1],
-    xlabel = "dx [m]",
-    ylabel = "dy [m]",
-    limits = (-1, 1, -1, 1),
-    title = "∑|F|L = $(round(res.f_opt, digits = 2))kNm; time = $(round(res.time, digits = 3))s"
+      fig[1,1],
+      xlabel = "dx [m]",
+      ylabel = "dy [m]",
+      limits = (-1, 1, -1, 1),
+      title = "∑|F|L = $(round(res.f_opt, digits = 2))kNm; time = $(round(res.time, digits = 3))s"
     )
 
     hm = heatmap!(
@@ -85,13 +92,15 @@ begin
     )
 
     contour!(
-    dx_range, dy_range, landscape,
-    levels = 25,
-    color = :white
+      dx_range, dy_range, landscape,
+      levels = 25,
+      color = (:white, 0.5)
     )
 
     scatterlines!(Point2.(res.x_history), color = :white)
 
+    #draw start and end points
+    scatter!(Point2(first(res.x_history)), color = :black, strokecolor = :black, markersize = 10)
     scatter!(Point2(res.x_opt), color = :white, strokecolor = :black, markersize = 10, strokewidth = 2)
 
     Colorbar(
@@ -102,3 +111,8 @@ begin
 
     fig
 end
+
+save("particle_swarm_0.5-0.75.pdf", fig)
+
+#visualize solution
+fig = draw_cantilever(res.x_opt)

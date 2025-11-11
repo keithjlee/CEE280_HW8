@@ -1,3 +1,7 @@
+n_samples = 50
+dx_range = range(-1, 1, n_samples)
+dy_range = range(-1, 1, n_samples)
+
 # Store optimization results
 struct OptimizationResults
     x_opt
@@ -35,8 +39,14 @@ function optimize(objective, params, x0, algorithm)
     sol = Optimization.solve(prob, algorithm, callback = callback)
     dt = time() - t0
 
+
+    println("OPTIMIZATION RESULTS")
+    println("TOTAL TIME: $dt s")
+    println("NUMBER OF ITERATIONS: $(length(x_store))")
+    println("MINIMUM: $(sol.objective)")
+    println("MINIMIZER: $(sol.u)")
     #
-    return OptimizationResults(sol.u, sol.objective, x_store, f_store, dt)
+    return OptimizationResults(sol.u, sol.objective, x_store, f_store, dt);
 
 end
 
@@ -96,11 +106,15 @@ function draw_cantilever(x)
 
     pts, els = model_to_geometry(model)
 
+    #limits
+    xrange = extrema(getindex.(pts, 1)) .+ [-.5, .5]
+    yrange = extrema(getindex.(pts, 2)) .+ [-.5, .5]
+
     fig = Figure()
     ax = Axis(
         fig[1,1],
         aspect = DataAspect(),
-        limits = (-.5, 4.5, -2.5, 0.5),
+        limits = (xrange..., yrange...),
         xticksvisible = false,
         yticksvisible = false
     )

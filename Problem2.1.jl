@@ -210,6 +210,12 @@ function FL(dx, dy)
   PERFORMANCE
   =#
 
+  F = element_forces #vector of element internal forces
+  L = element_lengths #vector of element lengths
+  P = load_vector #vector of external loads
+  u = u #vector of nodal displacements
+
+  loss = #YOUR CODE HERE
   loss = sum(abs.(element_forces) .* element_lengths)
 
   return loss
