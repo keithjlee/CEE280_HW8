@@ -340,3 +340,5 @@ begin
 
     fig
 end
+
+opt_model = generate_cantilever(res.x_opt)

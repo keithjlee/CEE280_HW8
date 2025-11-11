@@ -6,7 +6,7 @@ using LinearAlgebra, Asap, AsapOptim, Zygote, CairoMakie
 using Optimization, OptimizationOptimJL
 
 #define some utility functions
-include("utilities.jl")
+include("Problem2_utilities.jl")
 
 begin
   #this makes an Asap structural model of the same cantilever truss
