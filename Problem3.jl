@@ -1,3 +1,17 @@
+#=
+Press shift+enter to run lines/blocks of code!
+=#
+
+#load the environment and install any packages as required
+begin
+    using Pkg
+    Pkg.activate(".")
+    Pkg.instantiate()
+end
+
+#define some utility functions and load packages
+include("utilities.jl")
+
 function portal(L, H, b, d)
 
     #node
