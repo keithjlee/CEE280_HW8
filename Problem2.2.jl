@@ -35,6 +35,7 @@ function FL(x, params)
 end
 
 
+
 # Optimization algorithms
 
 begin
@@ -63,15 +64,13 @@ x0 = [.5, -.75]
 fig = draw_cantilever(x0)
 
 # choose algorithm
-alg = particle_swarm
+alg = LBFGS
 
 # optimize
 res = optimize(FL, params, x0, alg);
 
 # visualize design space
 begin
-    #performance landscape
-    landscape = [FL([x, y], params) for x in dx_range, y in dy_range]
 
     #draw
     fig = Figure()
@@ -112,7 +111,45 @@ begin
     fig
 end
 
-save("particle_swarm_0.5-0.75.pdf", fig)
-
 #visualize solution
 fig = draw_cantilever(res.x_opt)
+
+#best solution
+fl_opt = res.f_opt
+
+i_okay = findall(landscape .<= 1.50fl_opt)
+i_sample = rand(i_okay, 10)
+
+axis_index = reshape(1:10, 2, 5)
+
+nrows, ncols = size(axis_index)
+
+begin
+fig = Figure(size = (600, 200))
+  for i = 1:nrows
+    for j = 1:ncols
+      index = i_sample[axis_index[i, j]]
+      dx = dx_range[index[1]]
+      dy = dy_range[index[2]]
+
+      model = generate_cantilever([dx, dy])
+      pts, els = model_to_geometry(model)
+
+      ax = Axis(
+        fig[i, j],
+        aspect = DataAspect(),
+        limits = (-.25, 4.25, -3.25, .25)
+      )
+
+      hidedecorations!(ax)
+      hidespines!(ax)
+
+      linesegments!(els, color = :black)
+      scatter!(pts, color = :white, strokecolor = :black, strokewidth = 1, markersize = 5)
+    end
+  end
+
+  # rowgap!(fig.layout, 1, )
+  # resize_to_layout!(fig)
+  fig
+end
