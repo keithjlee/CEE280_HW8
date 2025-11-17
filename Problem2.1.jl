@@ -232,7 +232,8 @@ n_samples = 50
 dx_range = range(-1, 1, n_samples)
 dy_range = range(-1, 1, n_samples)
 
-p_v_x = [FL(x, 0) for x in dx_range]
+#YOUR CODE HERE
+p_v_x = zeros(n_samples)
 x_min = dx_range[argmin(p_v_x)]
 
 #visualize
@@ -263,8 +264,8 @@ end
 #uncomment the line below to save your figures as a .pdf. Or replace the ending with ".jpg" or ".png"
 # save("figure1.pdf", fig)
 
-# Test dy
-p_v_y = [FL(0, y) for y in dy_range]
+# YOUR CODE HERE
+p_v_y = zeros(n)
 y_min = dy_range[argmin(p_v_y)]
 
 begin
@@ -294,15 +295,7 @@ end
 # test full design space
 p_v_xy = zeros(n_samples, n_samples)
 
-for i = 1:n_samples
-  for j = 1:n_samples
-    _x = dx_range[i]
-    _y = dy_range[j]
-
-    perf = FL(_x, _y)
-    p_v_xy[i,j] = perf
-  end
-end
+# YOUR CODE HERE
 
 i_opt = argmin(p_v_xy)
 x_opt = dx_range[i_opt[1]]
