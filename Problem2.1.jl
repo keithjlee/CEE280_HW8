@@ -234,6 +234,8 @@ dy_range = range(-1, 1, n_samples)
 
 #YOUR CODE HERE
 p_v_x = zeros(n_samples)
+
+
 x_min = dx_range[argmin(p_v_x)]
 
 #visualize
@@ -266,6 +268,8 @@ end
 
 # YOUR CODE HERE
 p_v_y = zeros(n)
+
+
 y_min = dy_range[argmin(p_v_y)]
 
 begin
