@@ -35,7 +35,7 @@ function optimize(objective, params, x0, algorithm)
     local x_store = [x0]
     local f_store = [objective(x0, params)]
     callback = function(state, loss)
-        push!(x_store, state.u)
+        push!(x_store, copy(state.u))
         push!(f_store, loss)
         return false
     end
