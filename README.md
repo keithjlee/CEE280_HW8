@@ -45,3 +45,5 @@ The Julia terminal that appeared when you first started the file is the Julia RE
 Try `shift+enter`ing your way through `Problem2.1.jl`. Plots will appear in a separate tab in VS Code.
 
 You need to fill in the missing code, marked with `YOUR CODE HERE`. Until you do, the `isapprox` test line will give an error and the plots will be flat or blank. After completing `k_element` and the `loss` value in `FL`, re-run both functions and then the test line, which should return `true`.
+
+![](readme_assets/running_code.gif)
