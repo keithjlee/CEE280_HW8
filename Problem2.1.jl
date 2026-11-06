@@ -215,8 +215,8 @@ function FL(dx, dy)
   u = u #vector of nodal displacements
 
 
-  #YOUR CODE HERE (replace loss with the actual loss value)
-  loss = 0
+  #YOUR CODE HERE (replace nothing with the actual loss value)
+  loss = nothing
 
   return loss
 end
